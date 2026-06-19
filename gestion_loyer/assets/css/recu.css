@@ -1,0 +1,264 @@
+/* ============================================================
+   assets/css/recu.css — Style du reçu de loyer (وصل تسويغ / وصل كراء)
+   Design : document officiel imprimable, noir & blanc, cadre double
+   Inspiré du mockup Lovable — cohérent avec assets/css/style.css
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Amiri', 'IBM Plex Sans Arabic', serif;
+  background: #eef1f5;
+  padding: 24px 16px 48px;
+  direction: rtl;
+}
+
+/* ── Barre d'action (masquée à l'impression) ────────────────── */
+.no-print {
+  display: flex;
+  gap: .7rem;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.no-print button {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: .92rem;
+  font-weight: 600;
+  padding: .65rem 1.3rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity .15s ease, transform .15s ease;
+}
+
+.no-print button:hover { opacity: .9; transform: translateY(-1px); }
+
+.btn-print {
+  background: #1a3a5c;
+  color: #fff;
+}
+
+.btn-close {
+  background: #e8edf2;
+  color: #1a3a5c;
+}
+
+/* ── Feuille A4 ──────────────────────────────────────────────── */
+.receipt {
+  background: #ffffff;
+  color: #000000;
+  width: 100%;
+  max-width: 100%;
+  min-height: 210mm;
+  margin: 0 auto;
+  padding: 14mm 16mm;
+  box-sizing: border-box;
+  direction: rtl;
+  text-align: right;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, .12);
+}
+
+.receipt, .receipt-frame {
+  page-break-inside: avoid;
+}
+
+.receipt-frame {
+  border: 3px double #000;
+  padding: 8mm;
+  min-height: 260mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Titre ───────────────────────────────────────────────────── */
+.receipt-title {
+  text-align: center;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #000;
+  margin-bottom: 18px;
+  font-family: 'Amiri', serif;
+  color: #000;
+}
+
+/* ── Corps : lignes label / valeur ──────────────────────────── */
+.receipt-row {
+  display: grid;
+  grid-template-columns: minmax(140px, auto) 1fr;
+  gap: 0 12px;
+  align-items: baseline;
+  padding: 11px 6px;
+  border-bottom: 1px dashed #888;
+  font-size: 19px;
+  direction: rtl;
+}
+
+.receipt-row:last-child { border-bottom: none; }
+
+.receipt-row .label {
+  justify-self: end;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #000;
+  text-align: right;
+}
+
+.receipt-row .value {
+  justify-self: start;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  font-size: 21px;
+  font-weight: 600;
+  color: #000;
+  padding-left: 8px;
+}
+
+.receipt-row .value-text {
+  display: inline-block;
+  direction: ltr;
+  text-align: right;
+  unicode-bidi: isolate;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* ── Bande ville / date ─────────────────────────────────────── */
+.receipt-date-band {
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  padding: 11px 0;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  margin: 16px 0;
+  color: #000;
+}
+
+/* ── Bas : signature + calcul ───────────────────────────────── */
+.receipt-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid #000;
+  margin-top: auto;
+}
+
+.receipt-signature {
+  border-left: 2px solid #000;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt-signature {
+  min-height: 150px;
+  position: relative;
+}
+
+.receipt-signature .sig-date {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+}
+
+.receipt-signature .sig-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #000;
+}
+
+.receipt-signature .sig-title .owner-name {
+  font-weight: 600;
+}
+
+.sig-date {
+  margin-top: auto;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+}
+
+.signature-line {
+  border-bottom: 1.5px dotted #000;
+  height: 48px;
+  margin-top: 16px;
+}
+
+.receipt-calc { padding: 16px; }
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  font-size: 17px;
+  color: #000;
+}
+
+.calc-row .calc-amount {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+}
+
+.calc-divider {
+  border-top: 2.5px solid #000;
+  margin: 7px 0;
+}
+
+.calc-total {
+  font-size: 23px;
+  font-weight: 800;
+}
+
+/* ── Montant en lettres (sous le tableau, lisible avant impression) ─ */
+.receipt-lettres {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  padding: 10px 6px 0;
+  color: #000;
+}
+
+/* ── Bande rappel d'augmentation ────────────────────────────── */
+.receipt-reminder {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  margin-top: 14px;
+  color: #000;
+}
+
+/* ── Pied : infos propriétaire ──────────────────────────────── */
+.receipt-footer-info {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  padding-top: 10px;
+  color: #333;
+}
+
+/* ── Impression ──────────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A5 portrait; /* or landscape if you prefer */
+    margin: 0 !important; /* force browser to avoid printing headers/footers */
+  }
+  body {
+    margin: 10mm; /* safe inner margin while keeping page headers hidden */
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .no-print { display: none !important; }
+  .receipt { box-shadow: none !important; margin: 0; }
+}
