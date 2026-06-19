@@ -1,0 +1,42 @@
+services:
+  # 1. حاوية قاعدة البيانات MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql_loyer
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: gestion_loyer
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 2. حاوية phpMyAdmin لإدارة قاعدة البيانات
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_loyer
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+
+  # 3. حاوية تشغيل الـ PHP مع إضافات الـ MySQL المفعّلة تلقائياً
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_loyer
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./gestion_loyer:/var/www/html  # هنا قمنا بوضع اسم المجلد الجديد
+    depends_on:
+      - db
+
+volumes:
+  db_data:
